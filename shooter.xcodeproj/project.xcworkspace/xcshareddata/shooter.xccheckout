@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3AC5EE2D-0E0D-416B-864F-9954592F7E9A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>shooter</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>321BA2C4-CBB5-4AAD-8F9D-EAEDA89775C4</key>
+		<string>https://github.com/devtdeng/shooter.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>shooter/shooter.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>321BA2C4-CBB5-4AAD-8F9D-EAEDA89775C4</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/devtdeng/shooter.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>321BA2C4-CBB5-4AAD-8F9D-EAEDA89775C4</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>321BA2C4-CBB5-4AAD-8F9D-EAEDA89775C4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>shooter</string>
+		</dict>
+	</array>
+</dict>
+</plist>
