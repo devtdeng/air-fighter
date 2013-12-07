@@ -24,13 +24,6 @@
 		8514E533184F6FD700E18F67 /* stars1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8514E519184F6FD700E18F67 /* stars1.sks */; };
 		8514E534184F6FD700E18F67 /* stars2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8514E51A184F6FD700E18F67 /* stars2.sks */; };
 		8514E535184F6FD700E18F67 /* stars3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8514E51B184F6FD700E18F67 /* stars3.sks */; };
-		8514E536184F6FD700E18F67 /* explosion_large.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8514E51D184F6FD700E18F67 /* explosion_large.caf */; };
-		8514E537184F6FD700E18F67 /* explosion_small.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8514E51E184F6FD700E18F67 /* explosion_small.caf */; };
-		8514E538184F6FD700E18F67 /* laser_enemy.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8514E51F184F6FD700E18F67 /* laser_enemy.caf */; };
-		8514E539184F6FD700E18F67 /* laser_ship.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8514E520184F6FD700E18F67 /* laser_ship.caf */; };
-		8514E53A184F6FD700E18F67 /* powerup.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8514E521184F6FD700E18F67 /* powerup.caf */; };
-		8514E53B184F6FD700E18F67 /* shake.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8514E522184F6FD700E18F67 /* shake.caf */; };
-		8514E53C184F6FD700E18F67 /* SpaceGame.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8514E523184F6FD700E18F67 /* SpaceGame.caf */; };
 		8514E53D184F6FD700E18F67 /* SpaceShooter.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 8514E524184F6FD700E18F67 /* SpaceShooter.atlas */; };
 		855721EF184F8348000A33EE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8514E53E184F802800E18F67 /* CoreMotion.framework */; };
 		85FF9703184F6DA2004E3FE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FF9702184F6DA2004E3FE3 /* Foundation.framework */; };
@@ -80,13 +73,6 @@
 		8514E519184F6FD700E18F67 /* stars1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars1.sks; sourceTree = "<group>"; };
 		8514E51A184F6FD700E18F67 /* stars2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars2.sks; sourceTree = "<group>"; };
 		8514E51B184F6FD700E18F67 /* stars3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars3.sks; sourceTree = "<group>"; };
-		8514E51D184F6FD700E18F67 /* explosion_large.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = explosion_large.caf; sourceTree = "<group>"; };
-		8514E51E184F6FD700E18F67 /* explosion_small.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = explosion_small.caf; sourceTree = "<group>"; };
-		8514E51F184F6FD700E18F67 /* laser_enemy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = laser_enemy.caf; sourceTree = "<group>"; };
-		8514E520184F6FD700E18F67 /* laser_ship.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = laser_ship.caf; sourceTree = "<group>"; };
-		8514E521184F6FD700E18F67 /* powerup.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = powerup.caf; sourceTree = "<group>"; };
-		8514E522184F6FD700E18F67 /* shake.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shake.caf; sourceTree = "<group>"; };
-		8514E523184F6FD700E18F67 /* SpaceGame.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGame.caf; sourceTree = "<group>"; };
 		8514E524184F6FD700E18F67 /* SpaceShooter.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SpaceShooter.atlas; sourceTree = "<group>"; };
 		8514E53E184F802800E18F67 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		85FF96FF184F6DA2004E3FE3 /* shooter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shooter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,7 +132,6 @@
 				8514E50C184F6FD700E18F67 /* Classes */,
 				8514E50F184F6FD700E18F67 /* Icons */,
 				8514E515184F6FD700E18F67 /* Particles */,
-				8514E51C184F6FD700E18F67 /* Sounds */,
 				8514E524184F6FD700E18F67 /* SpaceShooter.atlas */,
 			);
 			name = Resources;
@@ -197,20 +182,6 @@
 				8514E51B184F6FD700E18F67 /* stars3.sks */,
 			);
 			path = Particles;
-			sourceTree = "<group>";
-		};
-		8514E51C184F6FD700E18F67 /* Sounds */ = {
-			isa = PBXGroup;
-			children = (
-				8514E51D184F6FD700E18F67 /* explosion_large.caf */,
-				8514E51E184F6FD700E18F67 /* explosion_small.caf */,
-				8514E51F184F6FD700E18F67 /* laser_enemy.caf */,
-				8514E520184F6FD700E18F67 /* laser_ship.caf */,
-				8514E521184F6FD700E18F67 /* powerup.caf */,
-				8514E522184F6FD700E18F67 /* shake.caf */,
-				8514E523184F6FD700E18F67 /* SpaceGame.caf */,
-			);
-			path = Sounds;
 			sourceTree = "<group>";
 		};
 		85FF96F6184F6DA2004E3FE3 = {
@@ -367,25 +338,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8514E53C184F6FD700E18F67 /* SpaceGame.caf in Resources */,
-				8514E539184F6FD700E18F67 /* laser_ship.caf in Resources */,
 				8514E526184F6FD700E18F67 /* bg_galaxy.png in Resources */,
 				8514E530184F6FD700E18F67 /* star1.png in Resources */,
 				85FF970F184F6DA2004E3FE3 /* InfoPlist.strings in Resources */,
 				8514E52D184F6FD700E18F67 /* icon-medium@2x.png in Resources */,
 				8514E52E184F6FD700E18F67 /* icon-small.png in Resources */,
-				8514E536184F6FD700E18F67 /* explosion_large.caf in Resources */,
-				8514E537184F6FD700E18F67 /* explosion_small.caf in Resources */,
 				8514E525184F6FD700E18F67 /* bg_front_spacedust.png in Resources */,
 				8514E527184F6FD700E18F67 /* bg_planetsunrise.png in Resources */,
 				85FF9722184F6DA2004E3FE3 /* Images.xcassets in Resources */,
-				8514E538184F6FD700E18F67 /* laser_enemy.caf in Resources */,
 				8514E53D184F6FD700E18F67 /* SpaceShooter.atlas in Resources */,
 				8514E531184F6FD700E18F67 /* star2.png in Resources */,
 				8514E535184F6FD700E18F67 /* stars3.sks in Resources */,
 				8514E532184F6FD700E18F67 /* star3.png in Resources */,
-				8514E53A184F6FD700E18F67 /* powerup.caf in Resources */,
-				8514E53B184F6FD700E18F67 /* shake.caf in Resources */,
 				8514E528184F6FD700E18F67 /* bg_spacialanomaly.png in Resources */,
 				8514E52C184F6FD700E18F67 /* icon-medium.png in Resources */,
 				85FF9718184F6DA2004E3FE3 /* Main.storyboard in Resources */,
