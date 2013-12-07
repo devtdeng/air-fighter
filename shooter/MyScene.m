@@ -178,7 +178,7 @@ typedef enum {
     
     destPoint.x = _ship.position.x;
     destPoint.y = self.frame.size.height - destPoint.y;
-    SKAction *moveTo = [SKAction moveTo:destPoint duration:0.5];
+    SKAction *moveTo = [SKAction moveTo:destPoint duration:0.3];
     
     NSLog(@"MyScene:updateShipPositionFromTouchEvent from (%f, %f) to (%f, %f)",_ship.position.x, _ship.position.y, destPoint.x, destPoint.y);
     [_ship runAction:moveTo];
@@ -362,7 +362,92 @@ typedef enum {
 
 - (void) ShareWithFacebookFriendsWith:(int)Score
 {
+    NSURL *urlToShare = [NSURL URLWithString:@"http://developers.facebook.com/ios"];
     
+    // This code demonstrates 3 different ways of sharing using the Facebook SDK.
+    // Here we use graph API directly
+    [self performPublishAction:^{
+        //NSString *message = [NSString stringWithFormat:@"Updating status for %@ at %@", self.loggedInUser.first_name, [NSDate date]];
+        NSString *message = [NSString stringWithFormat:@"get score %d", Score];
+        
+        FBRequestConnection *connection = [[FBRequestConnection alloc] init];
+        
+        connection.errorBehavior = FBRequestConnectionErrorBehaviorReconnectSession
+        | FBRequestConnectionErrorBehaviorAlertUser
+        | FBRequestConnectionErrorBehaviorRetry;
+        [connection addRequest:[FBRequest requestForPostStatusUpdate:message]
+             completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                 [self showAlert:message result:result error:error];
+             }];
+        [connection start];
+    }];
+}
+
+// Convenience method to perform some action that requires the "publish_actions" permissions.
+- (void) performPublishAction:(void (^)(void)) action {
+    // we defer request for permission to post to the moment of post, then we check for the permission
+    if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
+        // if we don't already have the permission, then we request it now
+        [FBSession.activeSession requestNewPublishPermissions:@[@"publish_actions"]
+                                              defaultAudience:FBSessionDefaultAudienceFriends
+                                            completionHandler:^(FBSession *session, NSError *error) {
+                                                if (!error) {
+                                                    action();
+                                                } else if (error.fberrorCategory != FBErrorCategoryUserCancelled){
+                                                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Permission denied"
+                                                                                                        message:@"Unable to get permission to post"
+                                                                                                       delegate:nil
+                                                                                              cancelButtonTitle:@"OK"
+                                                                                              otherButtonTitles:nil];
+                                                    [alertView show];
+                                                }
+                                            }];
+    } else {
+        action();
+    }
+    
+}
+
+// UIAlertView helper for post buttons
+- (void)showAlert:(NSString *)message
+           result:(id)result
+            error:(NSError *)error {
+    
+    NSString *alertMsg;
+    NSString *alertTitle;
+    if (error) {
+        alertTitle = @"Error";
+        // Since we use FBRequestConnectionErrorBehaviorAlertUser,
+        // we do not need to surface our own alert view if there is an
+        // an fberrorUserMessage unless the session is closed.
+        if (error.fberrorUserMessage && FBSession.activeSession.isOpen) {
+            alertTitle = nil;
+            
+        } else {
+            // Otherwise, use a general "connection problem" message.
+            alertMsg = @"Operation failed due to a connection problem, retry later.";
+        }
+    } else {
+        NSDictionary *resultDict = (NSDictionary *)result;
+        alertMsg = [NSString stringWithFormat:@"Successfully posted '%@'.", message];
+        NSString *postId = [resultDict valueForKey:@"id"];
+        if (!postId) {
+            postId = [resultDict valueForKey:@"postId"];
+        }
+        if (postId) {
+            alertMsg = [NSString stringWithFormat:@"%@\nPost ID: %@", alertMsg, postId];
+        }
+        alertTitle = @"Success";
+    }
+    
+    if (alertTitle) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:alertTitle
+                                                            message:alertMsg
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }
 }
 
 @end

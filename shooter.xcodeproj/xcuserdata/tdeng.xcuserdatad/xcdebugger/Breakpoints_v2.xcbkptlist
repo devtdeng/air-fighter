@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "shooter/MyScene.m"
-            timestampString = "407866836.373566"
+            timestampString = "408125219.617694"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "-initWithSize:"
             landmarkType = "5">
          </BreakpointContent>
