@@ -26,6 +26,8 @@
 		8514E535184F6FD700E18F67 /* stars3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8514E51B184F6FD700E18F67 /* stars3.sks */; };
 		8514E53D184F6FD700E18F67 /* SpaceShooter.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 8514E524184F6FD700E18F67 /* SpaceShooter.atlas */; };
 		855721EF184F8348000A33EE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8514E53E184F802800E18F67 /* CoreMotion.framework */; };
+		85A83321185335EE00C65EFC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A831EA185335DF00C65EFC /* FacebookSDK.framework */; };
+		85A8332518537FDB00C65EFC /* setting_50x50.png in Resources */ = {isa = PBXBuildFile; fileRef = 85A8332418537FDB00C65EFC /* setting_50x50.png */; };
 		85FF9703184F6DA2004E3FE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FF9702184F6DA2004E3FE3 /* Foundation.framework */; };
 		85FF9705184F6DA2004E3FE3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FF9704184F6DA2004E3FE3 /* CoreGraphics.framework */; };
 		85FF9707184F6DA2004E3FE3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FF9706184F6DA2004E3FE3 /* UIKit.framework */; };
@@ -75,6 +77,8 @@
 		8514E51B184F6FD700E18F67 /* stars3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars3.sks; sourceTree = "<group>"; };
 		8514E524184F6FD700E18F67 /* SpaceShooter.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SpaceShooter.atlas; sourceTree = "<group>"; };
 		8514E53E184F802800E18F67 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		85A831EA185335DF00C65EFC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		85A8332418537FDB00C65EFC /* setting_50x50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_50x50.png; sourceTree = "<group>"; };
 		85FF96FF184F6DA2004E3FE3 /* shooter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shooter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85FF9702184F6DA2004E3FE3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		85FF9704184F6DA2004E3FE3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -104,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85A83321185335EE00C65EFC /* FacebookSDK.framework in Frameworks */,
 				855721EF184F8348000A33EE /* CoreMotion.framework in Frameworks */,
 				85FF9705184F6DA2004E3FE3 /* CoreGraphics.framework in Frameworks */,
 				85FF9707184F6DA2004E3FE3 /* UIKit.framework in Frameworks */,
@@ -162,6 +167,7 @@
 		8514E50F184F6FD700E18F67 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				85A8332418537FDB00C65EFC /* setting_50x50.png */,
 				8514E510184F6FD700E18F67 /* icon-large@2x.png */,
 				8514E511184F6FD700E18F67 /* icon-medium.png */,
 				8514E512184F6FD700E18F67 /* icon-medium@2x.png */,
@@ -206,6 +212,7 @@
 		85FF9701184F6DA2004E3FE3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				85A831EA185335DF00C65EFC /* FacebookSDK.framework */,
 				8514E53E184F802800E18F67 /* CoreMotion.framework */,
 				85FF9702184F6DA2004E3FE3 /* Foundation.framework */,
 				85FF9704184F6DA2004E3FE3 /* CoreGraphics.framework */,
@@ -321,6 +328,7 @@
 			knownRegions = (
 				en,
 				Base,
+				he,
 			);
 			mainGroup = 85FF96F6184F6DA2004E3FE3;
 			productRefGroup = 85FF9700184F6DA2004E3FE3 /* Products */;
@@ -353,6 +361,7 @@
 				8514E528184F6FD700E18F67 /* bg_spacialanomaly.png in Resources */,
 				8514E52C184F6FD700E18F67 /* icon-medium.png in Resources */,
 				85FF9718184F6DA2004E3FE3 /* Main.storyboard in Resources */,
+				85A8332518537FDB00C65EFC /* setting_50x50.png in Resources */,
 				8514E52F184F6FD700E18F67 /* icon-small@2x.png in Resources */,
 				8514E533184F6FD700E18F67 /* stars1.sks in Resources */,
 				8514E529184F6FD700E18F67 /* bg_spacialanomaly2.png in Resources */,
@@ -507,6 +516,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/tdeng/Documents/FacebookSDK,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "shooter/shooter-Prefix.pch";
 				INFOPLIST_FILE = "shooter/shooter-Info.plist";
@@ -521,6 +534,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/tdeng/Documents/FacebookSDK,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "shooter/shooter-Prefix.pch";
 				INFOPLIST_FILE = "shooter/shooter-Info.plist";

@@ -14,18 +14,16 @@ typedef enum {
     kEndReasonLose
 } EndReason;
 
-#import <CoreMotion/CoreMotion.h>
 #import "MyScene.h"
 #import "FMMParallaxNode.h"
 
 @implementation MyScene
 {
     SKSpriteNode    *_ship;
+    SKSpriteNode    *_setting;
     
     FMMParallaxNode *_parallaxNodeBackgrounds;
     FMMParallaxNode *_parallaxSpaceDust;
-    
-    CMMotionManager *_motionManager;
     
     NSMutableArray *_asteroids;
     int _nextAsteroid;
@@ -48,7 +46,7 @@ typedef enum {
         NSLog(@"MyScene:initWithSize %f x %f",size.width,size.height);
         self.backgroundColor = [SKColor blackColor];
         self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
-
+        
 #pragma mark - TBD - Game Backgrounds
         NSArray *parallaxBackgroundNames = @[@"bg_galaxy.png", @"bg_planetsunrise.png",
                                              @"bg_spacialanomaly.png", @"bg_spacialanomaly2.png"];
@@ -74,6 +72,12 @@ typedef enum {
         _ship.position = CGPointMake(self.frame.size.width * 0.1, CGRectGetMidY(self.frame));
         [self addChild:_ship];
         
+#pragma mark - Setup Sprite for setting and ranking icon
+        _setting = [SKSpriteNode spriteNodeWithImageNamed:@"setting_50x50.png"];
+        _setting.position = CGPointMake(self.frame.size.width-25, 25);
+        _setting.name = @"setting";
+        [self addChild:_setting];
+        
 #pragma mark - TBD - Setup the asteroids
         _asteroids = [[NSMutableArray alloc] initWithCapacity:kNumAsteroids];
         for (int i = 0; i < kNumAsteroids; ++i) {
@@ -93,17 +97,11 @@ typedef enum {
             [_shipBullets addObject:shipLaser];
             [self addChild:shipLaser];
         }
-        
-#pragma mark - Setup the Accelerometer to move the ship. In this test game, use touch event instead of motion
-        //_motionManager = [[CMMotionManager alloc] init];
 
 #pragma mark - TBD - Setup the stars to appear as particles
         [self addChild:[self loadEmitterNode:@"stars1"]];
         [self addChild:[self loadEmitterNode:@"stars2"]];
         [self addChild:[self loadEmitterNode:@"stars3"]];
-        
-#pragma mark - TBD - Start the actual game
-        [self startTheGame];
         
 #pragma mark - TBD - Display score
         _score = 0;
@@ -111,13 +109,18 @@ typedef enum {
         _scoreLabel.name = @"score";
         _scoreLabel.text = [NSString stringWithFormat:@"Score : %d", _score];
         _scoreLabel.scale = 0.1;
-        _scoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height*0.8);
+        _scoreLabel.fontSize = 20;
+        _scoreLabel.position = CGPointMake(self.frame.size.width - 70, self.frame.size.height*0.9);
         _scoreLabel.fontColor = [SKColor yellowColor];
         
         [self addChild:_scoreLabel];
         SKAction *labelScaleAction = [SKAction scaleTo:1.0 duration:0.5];
         [_scoreLabel runAction:labelScaleAction];
+        
+#pragma mark - TBD - Start the actual game
+        [self startTheGame];
     }
+    
     return self;
 }
 
@@ -162,41 +165,9 @@ typedef enum {
         laser.hidden = YES;
     }
 
-    //setup to handle accelerometer readings using CoreMotion Framework
-    [self startMonitoringAcceleration];
-    
     //reset score to 0
     _score = 0;
 }
-
-- (void)startMonitoringAcceleration
-{
-#pragma mark - In this test app, use touch event to move ship instead of accelerator
-    //if (_motionManager.accelerometerAvailable) {
-    //    [_motionManager startAccelerometerUpdates];
-    //    NSLog(@"accelerometer updates on...");
-    //}
-}
-
-- (void)stopMonitoringAcceleration
-{
-#pragma mark - In this test app, use touch event to move ship instead of accelerator
-    //if (_motionManager.accelerometerAvailable && _motionManager.accelerometerActive) {
-    //    [_motionManager stopAccelerometerUpdates];
-    //    NSLog(@"accelerometer updates off...");
-    //}
-}
-
-/*
-- (void)updateShipPositionFromMotionManager
-{
-    CMAccelerometerData* data = _motionManager.accelerometerData;
-    if (fabs(data.acceleration.x) > 0.2) {
-        //NSLog(@"acceleration value = %f",data.acceleration.x);
-        [_ship.physicsBody applyForce:CGVectorMake(0.0, 40.0 * data.acceleration.x)];
-    }
-}
-*/
  
 - (void)updateShipPositionFromTouchEvent:(UITouch*)touch
 {
@@ -214,10 +185,12 @@ typedef enum {
 }
 
 /* Called when a touch begins */
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {    
     //check if they touched your Restart Label
+    
     for (UITouch *touch in touches) {
         SKNode *n = [self nodeAtPoint:[touch locationInNode:self]];
+        
         if (n != self && [n.name isEqual: @"restartLabel"]) {
             [[self childNodeWithName:@"restartLabel"] removeFromParent];
             [[self childNodeWithName:@"winLoseLabel"] removeFromParent];
@@ -226,6 +199,10 @@ typedef enum {
         }
         else if (n != self && [n.name isEqual: @"winLoseLabel"]) {
 #pragma mark - TBD - Share with friends (Facebook SDK)
+            [self ShareWithFacebookFriendsWith:_score];
+        }
+        else if (n != self && [n.name isEqual: @"setting"]) {
+#pragma mark - TBD - Open settings (Facebook SDK)
         }
         else{
             [self updateShipPositionFromTouchEvent:touch];
@@ -268,8 +245,6 @@ typedef enum {
     /* Called before each frame is rendered */
     [_parallaxSpaceDust update:currentTime];
     [_parallaxNodeBackgrounds update:currentTime];
-    
-    //[self updateShipPositionFromMotionManager];
     
     double curTime = CACurrentMediaTime();
     if (curTime > _nextAsteroidSpawn) {
@@ -350,7 +325,7 @@ typedef enum {
     }
     
     [self removeAllActions];
-    [self stopMonitoringAcceleration];
+
     _ship.hidden = YES;
     _gameOver = YES;
     
@@ -383,6 +358,11 @@ typedef enum {
     
     [restartLabel runAction:labelScaleAction];
     [label runAction:labelScaleAction];
+}
+
+- (void) ShareWithFacebookFriendsWith:(int)Score
+{
+    
 }
 
 @end
