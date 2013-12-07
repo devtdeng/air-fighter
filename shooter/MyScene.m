@@ -7,7 +7,7 @@
 //
 
 #define kNumAsteroids   15
-#define kNumLasers      5
+#define kNumBullets     5
 
 typedef enum {
     kEndReasonWin,
@@ -31,18 +31,21 @@ typedef enum {
     int _nextAsteroid;
     double _nextAsteroidSpawn;
     
-    NSMutableArray *_shipLasers;
+    NSMutableArray *_shipBullets;
     int _nextShipLaser;
     
     int _lives;
     double _gameOverTime;
     bool _gameOver;
+    
+    int _score;
+    SKLabelNode *_scoreLabel;
 }
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
-        NSLog(@"SKScene:initWithSize %f x %f",size.width,size.height);
+        NSLog(@"MyScene:initWithSize %f x %f",size.width,size.height);
         self.backgroundColor = [SKColor blackColor];
         self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
 
@@ -67,7 +70,7 @@ typedef enum {
 #pragma mark - Setup Sprite for the ship
         //Create space sprite, setup position on left edge centered on the screen, and add to Scene
         //4
-        _ship = [SKSpriteNode spriteNodeWithImageNamed:@"SpaceFlier_sm_1.png"];
+        _ship = [SKSpriteNode spriteNodeWithImageNamed:@"SpaceFlier_sm.png"];
         _ship.position = CGPointMake(self.frame.size.width * 0.1, CGRectGetMidY(self.frame));
         [self addChild:_ship];
         
@@ -83,16 +86,16 @@ typedef enum {
         }
         
 #pragma mark - TBD - Setup the lasers
-        _shipLasers = [[NSMutableArray alloc] initWithCapacity:kNumLasers];
-        for (int i = 0; i < kNumLasers; ++i) {
-            SKSpriteNode *shipLaser = [SKSpriteNode spriteNodeWithImageNamed:@"laserbeam_blue"];
+        _shipBullets = [[NSMutableArray alloc] initWithCapacity:kNumBullets];
+        for (int i = 0; i < kNumBullets; ++i) {
+            SKSpriteNode *shipLaser = [SKSpriteNode spriteNodeWithImageNamed:@"laserbeam_red"];
             shipLaser.hidden = YES;
-            [_shipLasers addObject:shipLaser];
+            [_shipBullets addObject:shipLaser];
             [self addChild:shipLaser];
         }
         
-#pragma mark - TBD - Setup the Accelerometer to move the ship
-        _motionManager = [[CMMotionManager alloc] init];
+#pragma mark - Setup the Accelerometer to move the ship. In this test game, use touch event instead of motion
+        //_motionManager = [[CMMotionManager alloc] init];
 
 #pragma mark - TBD - Setup the stars to appear as particles
         [self addChild:[self loadEmitterNode:@"stars1"]];
@@ -101,6 +104,19 @@ typedef enum {
         
 #pragma mark - TBD - Start the actual game
         [self startTheGame];
+        
+#pragma mark - TBD - Display score
+        _score = 0;
+        _scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+        _scoreLabel.name = @"score";
+        _scoreLabel.text = [NSString stringWithFormat:@"Score : %d", _score];
+        _scoreLabel.scale = 0.1;
+        _scoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height*0.8);
+        _scoreLabel.fontColor = [SKColor yellowColor];
+        
+        [self addChild:_scoreLabel];
+        SKAction *labelScaleAction = [SKAction scaleTo:1.0 duration:0.5];
+        [_scoreLabel runAction:labelScaleAction];
     }
     return self;
 }
@@ -142,30 +158,36 @@ typedef enum {
     _ship.physicsBody.mass = 0.02;
     
     //initialize laser
-    for (SKSpriteNode *laser in _shipLasers) {
+    for (SKSpriteNode *laser in _shipBullets) {
         laser.hidden = YES;
     }
 
     //setup to handle accelerometer readings using CoreMotion Framework
     [self startMonitoringAcceleration];
+    
+    //reset score to 0
+    _score = 0;
 }
 
 - (void)startMonitoringAcceleration
 {
-    if (_motionManager.accelerometerAvailable) {
-        [_motionManager startAccelerometerUpdates];
-        NSLog(@"accelerometer updates on...");
-    }
+#pragma mark - In this test app, use touch event to move ship instead of accelerator
+    //if (_motionManager.accelerometerAvailable) {
+    //    [_motionManager startAccelerometerUpdates];
+    //    NSLog(@"accelerometer updates on...");
+    //}
 }
 
 - (void)stopMonitoringAcceleration
 {
-    if (_motionManager.accelerometerAvailable && _motionManager.accelerometerActive) {
-        [_motionManager stopAccelerometerUpdates];
-        NSLog(@"accelerometer updates off...");
-    }
+#pragma mark - In this test app, use touch event to move ship instead of accelerator
+    //if (_motionManager.accelerometerAvailable && _motionManager.accelerometerActive) {
+    //    [_motionManager stopAccelerometerUpdates];
+    //    NSLog(@"accelerometer updates off...");
+    //}
 }
 
+/*
 - (void)updateShipPositionFromMotionManager
 {
     CMAccelerometerData* data = _motionManager.accelerometerData;
@@ -173,6 +195,22 @@ typedef enum {
         //NSLog(@"acceleration value = %f",data.acceleration.x);
         [_ship.physicsBody applyForce:CGVectorMake(0.0, 40.0 * data.acceleration.x)];
     }
+}
+*/
+ 
+- (void)updateShipPositionFromTouchEvent:(UITouch*)touch
+{
+    CGPoint destPoint = [touch locationInView:self.view];
+    
+    NSLog(@"MyScene:updateShipPositionFromTouchEvent touch (%f, %f)",destPoint.x, destPoint.y);
+    NSLog(@"MyScene:updateShipPositionFromTouchEvent ship (%f, %f)",_ship.position.x, _ship.position.y);
+    
+    destPoint.x = _ship.position.x;
+    destPoint.y = self.frame.size.height - destPoint.y;
+    SKAction *moveTo = [SKAction moveTo:destPoint duration:0.5];
+    
+    NSLog(@"MyScene:updateShipPositionFromTouchEvent from (%f, %f) to (%f, %f)",_ship.position.x, _ship.position.y, destPoint.x, destPoint.y);
+    [_ship runAction:moveTo];
 }
 
 /* Called when a touch begins */
@@ -189,6 +227,9 @@ typedef enum {
         else if (n != self && [n.name isEqual: @"winLoseLabel"]) {
 #pragma mark - TBD - Share with friends (Facebook SDK)
         }
+        else{
+            [self updateShipPositionFromTouchEvent:touch];
+        }
     }
     
     //do not process anymore touches since it's game over
@@ -196,9 +237,9 @@ typedef enum {
         return;
     }
     
-    SKSpriteNode *shipLaser = [_shipLasers objectAtIndex:_nextShipLaser];
+    SKSpriteNode *shipLaser = [_shipBullets objectAtIndex:_nextShipLaser];
     _nextShipLaser++;
-    if (_nextShipLaser >= _shipLasers.count) {
+    if (_nextShipLaser >= _shipBullets.count) {
         _nextShipLaser = 0;
     }
     
@@ -228,7 +269,7 @@ typedef enum {
     [_parallaxSpaceDust update:currentTime];
     [_parallaxNodeBackgrounds update:currentTime];
     
-    [self updateShipPositionFromMotionManager];
+    //[self updateShipPositionFromMotionManager];
     
     double curTime = CACurrentMediaTime();
     if (curTime > _nextAsteroidSpawn) {
@@ -262,13 +303,12 @@ typedef enum {
         [asteroid runAction:moveAsteroidActionWithDone withKey:@"asteroidMoving"];
     }
     
-    
     //check for laser collision with asteroid
     for (SKSpriteNode *asteroid in _asteroids) {
         if (asteroid.hidden) {
             continue;
         }
-        for (SKSpriteNode *shipLaser in _shipLasers) {
+        for (SKSpriteNode *shipLaser in _shipBullets) {
             if (shipLaser.hidden) {
                 continue;
             }
@@ -278,6 +318,7 @@ typedef enum {
                 asteroid.hidden = YES;
                 
                 NSLog(@"you just destroyed an asteroid");
+                _score++;
                 continue;
             }
         }
@@ -292,12 +333,13 @@ typedef enum {
         }
     }
     
+    // refresh score label
+    _scoreLabel.text = [NSString stringWithFormat:@"Score : %d", _score];
+    
     // Add at end of update loop
     if (_lives <= 0) {
-        NSLog(@"you lose...");
         [self endTheScene:kEndReasonLose];
     } else if (curTime >= _gameOverTime) {
-        NSLog(@"you won...");
         [self endTheScene:kEndReasonWin];
     }
 }
