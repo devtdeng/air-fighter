@@ -25,8 +25,9 @@
       "scale" : "1x"
     },
     {
-      "idiom" : "ipad",
       "size" : "29x29",
+      "idiom" : "ipad",
+      "filename" : "icon-small@2x-1.png",
       "scale" : "2x"
     }
   ],
