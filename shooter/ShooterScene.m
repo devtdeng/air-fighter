@@ -62,7 +62,7 @@ typedef enum {
         [self addChild:_parallaxSpaceDust];
         
         // Setup the ship
-        _ship = [SKSpriteNode spriteNodeWithImageNamed:@"SpaceFlier_sm.png"];
+        _ship = [SKSpriteNode spriteNodeWithImageNamed:@"SpaceFlier.png"];
         _ship.position = CGPointMake(self.frame.size.width * 0.1, CGRectGetMidY(self.frame));
         [self addChild:_ship];
         
