@@ -20,6 +20,8 @@ typedef enum {
 @implementation ShooterScene
 {
     SKSpriteNode    *_ship;
+    NSMutableArray *_shipBullets;
+    int _nextShipBullet;
     
     FMMParallaxNode *_parallaxNodeBackgrounds;
     FMMParallaxNode *_parallaxSpaceDust;
@@ -27,9 +29,6 @@ typedef enum {
     NSMutableArray *_asteroids;
     int _nextAsteroid;
     double _nextAsteroidSpawn;
-    
-    NSMutableArray *_shipBullets;
-    int _nextShipLaser;
     
     int _lives;
     double _gameOverTime;
@@ -41,12 +40,10 @@ typedef enum {
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
-        /* Setup your scene here */
-        NSLog(@"MyScene:initWithSize %f x %f",size.width,size.height);
         self.backgroundColor = [SKColor blackColor];
         self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         
-#pragma mark - TBD - Game Backgrounds
+        // Setup game background
         NSArray *parallaxBackgroundNames = @[@"bg_galaxy.png", @"bg_planetsunrise.png",
                                              @"bg_spacialanomaly.png", @"bg_spacialanomaly2.png"];
         CGSize planetSizes = CGSizeMake(200.0, 200.0);
@@ -64,14 +61,12 @@ typedef enum {
         _parallaxSpaceDust.position = CGPointMake(0, 0);
         [self addChild:_parallaxSpaceDust];
         
-#pragma mark - Setup Sprite for the ship
-        //Create space sprite, setup position on left edge centered on the screen, and add to Scene
-        //4
+        // Setup the ship
         _ship = [SKSpriteNode spriteNodeWithImageNamed:@"SpaceFlier_sm.png"];
         _ship.position = CGPointMake(self.frame.size.width * 0.1, CGRectGetMidY(self.frame));
         [self addChild:_ship];
         
-#pragma mark - TBD - Setup the asteroids
+        // Setup the asteroids
         _asteroids = [[NSMutableArray alloc] initWithCapacity:kNumAsteroids];
         for (int i = 0; i < kNumAsteroids; ++i) {
             SKSpriteNode *asteroid = [SKSpriteNode spriteNodeWithImageNamed:@"asteroid"];
@@ -82,21 +77,21 @@ typedef enum {
             [self addChild:asteroid];
         }
         
-#pragma mark - TBD - Setup the lasers
+        // Setup the ship bullets
         _shipBullets = [[NSMutableArray alloc] initWithCapacity:kNumBullets];
         for (int i = 0; i < kNumBullets; ++i) {
-            SKSpriteNode *shipLaser = [SKSpriteNode spriteNodeWithImageNamed:@"laserbeam_red"];
-            shipLaser.hidden = YES;
-            [_shipBullets addObject:shipLaser];
-            [self addChild:shipLaser];
+            SKSpriteNode *shipBullet = [SKSpriteNode spriteNodeWithImageNamed:@"bullet"];
+            shipBullet.hidden = YES;
+            [_shipBullets addObject:shipBullet];
+            [self addChild:shipBullet];
         }
 
-#pragma mark - TBD - Setup the stars to appear as particles
+        // Setup the stars to appear as particles
         [self addChild:[self loadEmitterNode:@"stars1"]];
         [self addChild:[self loadEmitterNode:@"stars2"]];
         [self addChild:[self loadEmitterNode:@"stars3"]];
         
-#pragma mark - TBD - Display score
+        // Setup score label at top left corner
         _score = 0;
         _scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
         _scoreLabel.name = @"score";
@@ -110,7 +105,7 @@ typedef enum {
         SKAction *labelScaleAction = [SKAction scaleTo:1.0 duration:0.5];
         [_scoreLabel runAction:labelScaleAction];
         
-#pragma mark - TBD - Start the actual game
+        // Start the actual game
         [self startTheGame];
     }
     
@@ -131,55 +126,43 @@ typedef enum {
 
 - (void)startTheGame
 {
-    //initialize game data
+    // initialize game data
     _lives = 3;
     double curTime = CACurrentMediaTime();
     _gameOverTime = curTime + 20.0;
     _gameOver = NO;
     
-    //initialize asteroid
+    // initialize asteroid
     _nextAsteroidSpawn = 0;
     for (SKSpriteNode *asteroid in _asteroids) {
         asteroid.hidden = YES;
     }
     
+    // display ship
     _ship.hidden = NO;
     //reset ship position for new game
     _ship.position = CGPointMake(self.frame.size.width * 0.1, CGRectGetMidY(self.frame));
     
-    //move the ship using Sprite Kit's Physics Engine
-    _ship.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_ship.frame.size];
-    _ship.physicsBody.dynamic = YES;
-    _ship.physicsBody.affectedByGravity = NO;
-    _ship.physicsBody.mass = 0.02;
-    
-    //initialize laser
+    // initialize bullets
     for (SKSpriteNode *laser in _shipBullets) {
         laser.hidden = YES;
     }
 
-    //reset score to 0
     _score = 0;
 }
- 
+
+/* Move ship from current position to touch event postion */
 - (void)updateShipPositionFromTouchEvent:(UITouch*)touch
 {
     CGPoint destPoint = [touch locationInView:self.view];
-    
-    NSLog(@"MyScene:updateShipPositionFromTouchEvent touch (%f, %f)",destPoint.x, destPoint.y);
-    NSLog(@"MyScene:updateShipPositionFromTouchEvent ship (%f, %f)",_ship.position.x, _ship.position.y);
-    
     destPoint.x = _ship.position.x;
     destPoint.y = self.frame.size.height - destPoint.y;
     SKAction *moveTo = [SKAction moveTo:destPoint duration:0.3];
-    
-    NSLog(@"MyScene:updateShipPositionFromTouchEvent from (%f, %f) to (%f, %f)",_ship.position.x, _ship.position.y, destPoint.x, destPoint.y);
     [_ship runAction:moveTo];
 }
 
 /* Called when a touch begins */
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {    
-    //check if they touched your Restart Label
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     for (UITouch *touch in touches) {
         SKNode *n = [self nodeAtPoint:[touch locationInNode:self]];
@@ -191,7 +174,6 @@ typedef enum {
             return;
         }
         else if (n != self && [n.name isEqual: @"winLoseLabel"]) {
-            // share game score to facebook
             [self ShareWithFacebookFriendsWith:_score];
         }
         else{
@@ -204,27 +186,27 @@ typedef enum {
         return;
     }
     
-    SKSpriteNode *shipLaser = [_shipBullets objectAtIndex:_nextShipLaser];
-    _nextShipLaser++;
-    if (_nextShipLaser >= _shipBullets.count) {
-        _nextShipLaser = 0;
+    SKSpriteNode *shipBullet = [_shipBullets objectAtIndex:_nextShipBullet];
+    _nextShipBullet++;
+    if (_nextShipBullet >= _shipBullets.count) {
+        _nextShipBullet = 0;
     }
     
-    shipLaser.position = CGPointMake(_ship.position.x+shipLaser.size.width/2,_ship.position.y+0);
-    shipLaser.hidden = NO;
-    [shipLaser removeAllActions];
+    shipBullet.position = CGPointMake(_ship.position.x+shipBullet.size.width/2,_ship.position.y+0);
+    shipBullet.hidden = NO;
+    [shipBullet removeAllActions];
     
     CGPoint location = CGPointMake(self.frame.size.width, _ship.position.y);
     SKAction *laserMoveAction = [SKAction moveTo:location duration:0.5];
 
     SKAction *laserDoneAction = [SKAction runBlock:(dispatch_block_t)^() {
         //NSLog(@"Animation Completed");
-        shipLaser.hidden = YES;
+        shipBullet.hidden = YES;
     }];
     
     SKAction *moveLaserActionWithDone = [SKAction sequence:@[laserMoveAction,laserDoneAction]];
 
-    [shipLaser runAction:moveLaserActionWithDone withKey:@"laserFired"];
+    [shipBullet runAction:moveLaserActionWithDone withKey:@"laserFired"];
 }
 
 - (float)randomValueBetween:(float)low andValue:(float)high {
@@ -273,13 +255,13 @@ typedef enum {
         if (asteroid.hidden) {
             continue;
         }
-        for (SKSpriteNode *shipLaser in _shipBullets) {
-            if (shipLaser.hidden) {
+        for (SKSpriteNode *shipBullet in _shipBullets) {
+            if (shipBullet.hidden) {
                 continue;
             }
             
-            if ([shipLaser intersectsNode:asteroid]) {
-                shipLaser.hidden = YES;
+            if ([shipBullet intersectsNode:asteroid]) {
+                shipBullet.hidden = YES;
                 asteroid.hidden = YES;
                 
                 NSLog(@"you just destroyed an asteroid");
@@ -350,6 +332,7 @@ typedef enum {
     [label runAction:labelScaleAction];
 }
 
+/* Publish game activities/score on current Facebook user's current status*/
 - (void) ShareWithFacebookFriendsWith:(int)Score
 {
     NSString *shareMessage = [NSString stringWithFormat:@"Play game Shooter and get score: %d", Score];
@@ -362,7 +345,10 @@ typedef enum {
     
     [FBWebDialogs presentFeedDialogModallyWithSession:nil
                                            parameters:params
-                                              handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {}
+                                              handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error){
+                                                  // TBD
+                                              }
      ];
 }
+
 @end

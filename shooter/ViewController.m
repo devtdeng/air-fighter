@@ -14,9 +14,9 @@
 
 @implementation ViewController
 {
-    FBLoginView* _loginview;
-    UIButton*   _invtieButton;
-    UIButton*   _settingButton;
+    FBLoginView* _loginview;    // Facebook login view
+    UIButton*   _invtieButton;  // invite button
+    UIButton*   _settingButton; // setting button
 }
 
 - (void)viewDidLoad
@@ -28,7 +28,7 @@
 {
     [super viewWillLayoutSubviews];
     
-    // Create Login View so that the app will be granted "status_update" permission.
+    // initialize Facebook login view
     _loginview = [[FBLoginView alloc] init];
     _loginview.frame = CGRectOffset(_loginview.frame,
                                     CGRectGetMidX(self.view.bounds)-_loginview.bounds.size.width/2,
@@ -40,10 +40,9 @@
     
     // add invite button, hidden until facebook login
     _invtieButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _invtieButton.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-105,
-                                     0, 50, 50);
-    
-    [_invtieButton setBackgroundImage:[UIImage imageNamed:@"invite_40x40.png"]forState:UIControlStateNormal];
+    _invtieButton.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-105,0, 50, 50);
+    [_invtieButton setBackgroundImage:[UIImage imageNamed:@"invite_40x40.png"]
+                             forState:UIControlStateNormal];
     
     [_invtieButton addTarget:self action:@selector(inviteButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     _invtieButton.hidden = YES;
@@ -52,8 +51,11 @@
     // add setting button, hidden until facebook login
     _settingButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _settingButton.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-50,0,50,50);
-    [_settingButton setBackgroundImage:[UIImage imageNamed:@"setting_40x40.png"]forState:UIControlStateNormal];
-    [_settingButton addTarget:self action:@selector(settingButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [_settingButton setBackgroundImage:[UIImage imageNamed:@"setting_40x40.png"]
+                              forState:UIControlStateNormal];
+    [_settingButton addTarget:self
+                       action:@selector(settingButtonClicked)
+             forControlEvents:UIControlEventTouchUpInside];
     _settingButton.hidden = YES;
     [self.view addSubview:_settingButton];
     
@@ -90,21 +92,16 @@
     [self initializeMyScene];
 }
 
-- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
-                            user:(id<FBGraphUser>)user {
-    NSLog(@"loginViewFetchedUserInfo");
+- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user {
+    // Fecch login user info here
 }
 
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
-    AppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
-    NSLog(@"loginViewShowingLoggedInUser, session stat=%d", appDelegate.session.state);
-    
     [self finalizeMyScene];
 }
 
 - (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
-    // Handle login error here
-    NSLog(@"FBLoginView encountered an error=%@", error);
+    // Handle Facebook login error here
 }
 
 #pragma mark -
@@ -138,14 +135,13 @@
     [self finalizeMyScene];
     
     // Send requests to friends directly
-    [FBWebDialogs
-     presentRequestsDialogModallyWithSession:nil
-     message:@"Please join me to play the game!"
-     title:@"Invite Facebook Friends"
-     parameters:nil
-     handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
-         [self initializeMyScene];
-     }
+    [FBWebDialogs presentRequestsDialogModallyWithSession:nil
+                                                  message:@"Please join me to play the game!"
+                                                    title:@"Invite Facebook Friends"
+                                               parameters:nil
+                                                  handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+                                                      [self initializeMyScene];
+                                                  }
      ];
 }
 

@@ -13,17 +13,15 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-    return [FBAppCall handleOpenURL:url
-                  sourceApplication:sourceApplication
-                        withSession:self.session];
+    
+    // FBLoginView => Safari -> AppDelegate
+    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication withSession:self.session];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    
-    return NO;
-//    return YES;
+    return YES;
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
