@@ -27,7 +27,8 @@
 		8514E53D184F6FD700E18F67 /* SpaceShooter.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 8514E524184F6FD700E18F67 /* SpaceShooter.atlas */; };
 		855721EF184F8348000A33EE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8514E53E184F802800E18F67 /* CoreMotion.framework */; };
 		85A83321185335EE00C65EFC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A831EA185335DF00C65EFC /* FacebookSDK.framework */; };
-		85A8332518537FDB00C65EFC /* setting_50x50.png in Resources */ = {isa = PBXBuildFile; fileRef = 85A8332418537FDB00C65EFC /* setting_50x50.png */; };
+		85A8332C18543DAB00C65EFC /* invite_40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 85A8332B18543DAB00C65EFC /* invite_40x40.png */; };
+		85A8332E18543E1300C65EFC /* setting_40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 85A8332D18543E1300C65EFC /* setting_40x40.png */; };
 		85FF9703184F6DA2004E3FE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FF9702184F6DA2004E3FE3 /* Foundation.framework */; };
 		85FF9705184F6DA2004E3FE3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FF9704184F6DA2004E3FE3 /* CoreGraphics.framework */; };
 		85FF9707184F6DA2004E3FE3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FF9706184F6DA2004E3FE3 /* UIKit.framework */; };
@@ -37,7 +38,7 @@
 		85FF9715184F6DA2004E3FE3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85FF9714184F6DA2004E3FE3 /* AppDelegate.m */; };
 		85FF9718184F6DA2004E3FE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85FF9716184F6DA2004E3FE3 /* Main.storyboard */; };
 		85FF971B184F6DA2004E3FE3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85FF971A184F6DA2004E3FE3 /* ViewController.m */; };
-		85FF971E184F6DA2004E3FE3 /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 85FF971D184F6DA2004E3FE3 /* MyScene.m */; };
+		85FF971E184F6DA2004E3FE3 /* ShooterScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 85FF971D184F6DA2004E3FE3 /* ShooterScene.m */; };
 		85FF9722184F6DA2004E3FE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85FF9721184F6DA2004E3FE3 /* Images.xcassets */; };
 		85FF9729184F6DA2004E3FE3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FF9728184F6DA2004E3FE3 /* XCTest.framework */; };
 		85FF972A184F6DA2004E3FE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FF9702184F6DA2004E3FE3 /* Foundation.framework */; };
@@ -78,7 +79,8 @@
 		8514E524184F6FD700E18F67 /* SpaceShooter.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SpaceShooter.atlas; sourceTree = "<group>"; };
 		8514E53E184F802800E18F67 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		85A831EA185335DF00C65EFC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
-		85A8332418537FDB00C65EFC /* setting_50x50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_50x50.png; sourceTree = "<group>"; };
+		85A8332B18543DAB00C65EFC /* invite_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = invite_40x40.png; sourceTree = "<group>"; };
+		85A8332D18543E1300C65EFC /* setting_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_40x40.png; sourceTree = "<group>"; };
 		85FF96FF184F6DA2004E3FE3 /* shooter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shooter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85FF9702184F6DA2004E3FE3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		85FF9704184F6DA2004E3FE3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -93,8 +95,8 @@
 		85FF9717184F6DA2004E3FE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		85FF9719184F6DA2004E3FE3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		85FF971A184F6DA2004E3FE3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		85FF971C184F6DA2004E3FE3 /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
-		85FF971D184F6DA2004E3FE3 /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
+		85FF971C184F6DA2004E3FE3 /* ShooterScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShooterScene.h; sourceTree = "<group>"; };
+		85FF971D184F6DA2004E3FE3 /* ShooterScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShooterScene.m; sourceTree = "<group>"; };
 		85FF9721184F6DA2004E3FE3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		85FF9727184F6DA2004E3FE3 /* shooterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = shooterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85FF9728184F6DA2004E3FE3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -167,7 +169,8 @@
 		8514E50F184F6FD700E18F67 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				85A8332418537FDB00C65EFC /* setting_50x50.png */,
+				85A8332D18543E1300C65EFC /* setting_40x40.png */,
+				85A8332B18543DAB00C65EFC /* invite_40x40.png */,
 				8514E510184F6FD700E18F67 /* icon-large@2x.png */,
 				8514E511184F6FD700E18F67 /* icon-medium.png */,
 				8514E512184F6FD700E18F67 /* icon-medium@2x.png */,
@@ -231,8 +234,8 @@
 				85FF9716184F6DA2004E3FE3 /* Main.storyboard */,
 				85FF9719184F6DA2004E3FE3 /* ViewController.h */,
 				85FF971A184F6DA2004E3FE3 /* ViewController.m */,
-				85FF971C184F6DA2004E3FE3 /* MyScene.h */,
-				85FF971D184F6DA2004E3FE3 /* MyScene.m */,
+				85FF971C184F6DA2004E3FE3 /* ShooterScene.h */,
+				85FF971D184F6DA2004E3FE3 /* ShooterScene.m */,
 				8514E505184F6FD700E18F67 /* Resources */,
 				85FF9721184F6DA2004E3FE3 /* Images.xcassets */,
 				85FF970B184F6DA2004E3FE3 /* Supporting Files */,
@@ -355,13 +358,14 @@
 				8514E527184F6FD700E18F67 /* bg_planetsunrise.png in Resources */,
 				85FF9722184F6DA2004E3FE3 /* Images.xcassets in Resources */,
 				8514E53D184F6FD700E18F67 /* SpaceShooter.atlas in Resources */,
+				85A8332E18543E1300C65EFC /* setting_40x40.png in Resources */,
+				85A8332C18543DAB00C65EFC /* invite_40x40.png in Resources */,
 				8514E531184F6FD700E18F67 /* star2.png in Resources */,
 				8514E535184F6FD700E18F67 /* stars3.sks in Resources */,
 				8514E532184F6FD700E18F67 /* star3.png in Resources */,
 				8514E528184F6FD700E18F67 /* bg_spacialanomaly.png in Resources */,
 				8514E52C184F6FD700E18F67 /* icon-medium.png in Resources */,
 				85FF9718184F6DA2004E3FE3 /* Main.storyboard in Resources */,
-				85A8332518537FDB00C65EFC /* setting_50x50.png in Resources */,
 				8514E52F184F6FD700E18F67 /* icon-small@2x.png in Resources */,
 				8514E533184F6FD700E18F67 /* stars1.sks in Resources */,
 				8514E529184F6FD700E18F67 /* bg_spacialanomaly2.png in Resources */,
@@ -385,7 +389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85FF971E184F6DA2004E3FE3 /* MyScene.m in Sources */,
+				85FF971E184F6DA2004E3FE3 /* ShooterScene.m in Sources */,
 				85FF971B184F6DA2004E3FE3 /* ViewController.m in Sources */,
 				85FF9715184F6DA2004E3FE3 /* AppDelegate.m in Sources */,
 				8514E52A184F6FD700E18F67 /* FMMParallaxNode.m in Sources */,
@@ -525,6 +529,7 @@
 				INFOPLIST_FILE = "shooter/shooter-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -543,6 +548,7 @@
 				INFOPLIST_FILE = "shooter/shooter-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
