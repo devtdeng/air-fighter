@@ -34,7 +34,7 @@
 	<key>FacebookAppID</key>
 	<string>521786777920527</string>
 	<key>FacebookDisplayName</key>
-	<string>Shooter</string>
+	<string>shooter</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIMainStoryboardFile</key>

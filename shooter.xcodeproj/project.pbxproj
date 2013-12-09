@@ -7,12 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8514E525184F6FD700E18F67 /* bg_front_spacedust.png in Resources */ = {isa = PBXBuildFile; fileRef = 8514E507184F6FD700E18F67 /* bg_front_spacedust.png */; };
-		8514E526184F6FD700E18F67 /* bg_galaxy.png in Resources */ = {isa = PBXBuildFile; fileRef = 8514E508184F6FD700E18F67 /* bg_galaxy.png */; };
-		8514E527184F6FD700E18F67 /* bg_planetsunrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 8514E509184F6FD700E18F67 /* bg_planetsunrise.png */; };
-		8514E528184F6FD700E18F67 /* bg_spacialanomaly.png in Resources */ = {isa = PBXBuildFile; fileRef = 8514E50A184F6FD700E18F67 /* bg_spacialanomaly.png */; };
-		8514E529184F6FD700E18F67 /* bg_spacialanomaly2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8514E50B184F6FD700E18F67 /* bg_spacialanomaly2.png */; };
-		8514E52A184F6FD700E18F67 /* FMMParallaxNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8514E50E184F6FD700E18F67 /* FMMParallaxNode.m */; };
 		8514E52B184F6FD700E18F67 /* icon-large@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8514E510184F6FD700E18F67 /* icon-large@2x.png */; };
 		8514E52C184F6FD700E18F67 /* icon-medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 8514E511184F6FD700E18F67 /* icon-medium.png */; };
 		8514E52D184F6FD700E18F67 /* icon-medium@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8514E512184F6FD700E18F67 /* icon-medium@2x.png */; };
@@ -25,6 +19,7 @@
 		8514E534184F6FD700E18F67 /* stars2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8514E51A184F6FD700E18F67 /* stars2.sks */; };
 		8514E535184F6FD700E18F67 /* stars3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8514E51B184F6FD700E18F67 /* stars3.sks */; };
 		8514E53D184F6FD700E18F67 /* SpaceShooter.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 8514E524184F6FD700E18F67 /* SpaceShooter.atlas */; };
+		853161CD18560E5400F554EF /* WelcomeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 853161CC18560E5400F554EF /* WelcomeScene.m */; };
 		855721EF184F8348000A33EE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8514E53E184F802800E18F67 /* CoreMotion.framework */; };
 		85A83321185335EE00C65EFC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A831EA185335DF00C65EFC /* FacebookSDK.framework */; };
 		85A8332C18543DAB00C65EFC /* invite_40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 85A8332B18543DAB00C65EFC /* invite_40x40.png */; };
@@ -58,13 +53,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8514E507184F6FD700E18F67 /* bg_front_spacedust.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_front_spacedust.png; sourceTree = "<group>"; };
-		8514E508184F6FD700E18F67 /* bg_galaxy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_galaxy.png; sourceTree = "<group>"; };
-		8514E509184F6FD700E18F67 /* bg_planetsunrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_planetsunrise.png; sourceTree = "<group>"; };
-		8514E50A184F6FD700E18F67 /* bg_spacialanomaly.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_spacialanomaly.png; sourceTree = "<group>"; };
-		8514E50B184F6FD700E18F67 /* bg_spacialanomaly2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_spacialanomaly2.png; sourceTree = "<group>"; };
-		8514E50D184F6FD700E18F67 /* FMMParallaxNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMMParallaxNode.h; sourceTree = "<group>"; };
-		8514E50E184F6FD700E18F67 /* FMMParallaxNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMMParallaxNode.m; sourceTree = "<group>"; };
 		8514E510184F6FD700E18F67 /* icon-large@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-large@2x.png"; sourceTree = "<group>"; };
 		8514E511184F6FD700E18F67 /* icon-medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-medium.png"; sourceTree = "<group>"; };
 		8514E512184F6FD700E18F67 /* icon-medium@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-medium@2x.png"; sourceTree = "<group>"; };
@@ -78,6 +66,8 @@
 		8514E51B184F6FD700E18F67 /* stars3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars3.sks; sourceTree = "<group>"; };
 		8514E524184F6FD700E18F67 /* SpaceShooter.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SpaceShooter.atlas; sourceTree = "<group>"; };
 		8514E53E184F802800E18F67 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		853161CB18560E5400F554EF /* WelcomeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeScene.h; sourceTree = "<group>"; };
+		853161CC18560E5400F554EF /* WelcomeScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeScene.m; sourceTree = "<group>"; };
 		85A831EA185335DF00C65EFC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		85A8332B18543DAB00C65EFC /* invite_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = invite_40x40.png; sourceTree = "<group>"; };
 		85A8332D18543E1300C65EFC /* setting_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_40x40.png; sourceTree = "<group>"; };
@@ -135,35 +125,12 @@
 		8514E505184F6FD700E18F67 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8514E506184F6FD700E18F67 /* Backgrounds */,
-				8514E50C184F6FD700E18F67 /* Classes */,
 				8514E50F184F6FD700E18F67 /* Icons */,
 				8514E515184F6FD700E18F67 /* Particles */,
 				8514E524184F6FD700E18F67 /* SpaceShooter.atlas */,
 			);
 			name = Resources;
 			path = ../Resources;
-			sourceTree = "<group>";
-		};
-		8514E506184F6FD700E18F67 /* Backgrounds */ = {
-			isa = PBXGroup;
-			children = (
-				8514E507184F6FD700E18F67 /* bg_front_spacedust.png */,
-				8514E508184F6FD700E18F67 /* bg_galaxy.png */,
-				8514E509184F6FD700E18F67 /* bg_planetsunrise.png */,
-				8514E50A184F6FD700E18F67 /* bg_spacialanomaly.png */,
-				8514E50B184F6FD700E18F67 /* bg_spacialanomaly2.png */,
-			);
-			path = Backgrounds;
-			sourceTree = "<group>";
-		};
-		8514E50C184F6FD700E18F67 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				8514E50D184F6FD700E18F67 /* FMMParallaxNode.h */,
-				8514E50E184F6FD700E18F67 /* FMMParallaxNode.m */,
-			);
-			path = Classes;
 			sourceTree = "<group>";
 		};
 		8514E50F184F6FD700E18F67 /* Icons */ = {
@@ -236,6 +203,8 @@
 				85FF971A184F6DA2004E3FE3 /* ViewController.m */,
 				85FF971C184F6DA2004E3FE3 /* ShooterScene.h */,
 				85FF971D184F6DA2004E3FE3 /* ShooterScene.m */,
+				853161CB18560E5400F554EF /* WelcomeScene.h */,
+				853161CC18560E5400F554EF /* WelcomeScene.m */,
 				8514E505184F6FD700E18F67 /* Resources */,
 				85FF9721184F6DA2004E3FE3 /* Images.xcassets */,
 				85FF970B184F6DA2004E3FE3 /* Supporting Files */,
@@ -349,13 +318,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8514E526184F6FD700E18F67 /* bg_galaxy.png in Resources */,
 				8514E530184F6FD700E18F67 /* star1.png in Resources */,
 				85FF970F184F6DA2004E3FE3 /* InfoPlist.strings in Resources */,
 				8514E52D184F6FD700E18F67 /* icon-medium@2x.png in Resources */,
 				8514E52E184F6FD700E18F67 /* icon-small.png in Resources */,
-				8514E525184F6FD700E18F67 /* bg_front_spacedust.png in Resources */,
-				8514E527184F6FD700E18F67 /* bg_planetsunrise.png in Resources */,
 				85FF9722184F6DA2004E3FE3 /* Images.xcassets in Resources */,
 				8514E53D184F6FD700E18F67 /* SpaceShooter.atlas in Resources */,
 				85A8332E18543E1300C65EFC /* setting_40x40.png in Resources */,
@@ -363,12 +329,10 @@
 				8514E531184F6FD700E18F67 /* star2.png in Resources */,
 				8514E535184F6FD700E18F67 /* stars3.sks in Resources */,
 				8514E532184F6FD700E18F67 /* star3.png in Resources */,
-				8514E528184F6FD700E18F67 /* bg_spacialanomaly.png in Resources */,
 				8514E52C184F6FD700E18F67 /* icon-medium.png in Resources */,
 				85FF9718184F6DA2004E3FE3 /* Main.storyboard in Resources */,
 				8514E52F184F6FD700E18F67 /* icon-small@2x.png in Resources */,
 				8514E533184F6FD700E18F67 /* stars1.sks in Resources */,
-				8514E529184F6FD700E18F67 /* bg_spacialanomaly2.png in Resources */,
 				8514E52B184F6FD700E18F67 /* icon-large@2x.png in Resources */,
 				8514E534184F6FD700E18F67 /* stars2.sks in Resources */,
 			);
@@ -392,8 +356,8 @@
 				85FF971E184F6DA2004E3FE3 /* ShooterScene.m in Sources */,
 				85FF971B184F6DA2004E3FE3 /* ViewController.m in Sources */,
 				85FF9715184F6DA2004E3FE3 /* AppDelegate.m in Sources */,
-				8514E52A184F6FD700E18F67 /* FMMParallaxNode.m in Sources */,
 				85FF9711184F6DA2004E3FE3 /* main.m in Sources */,
+				853161CD18560E5400F554EF /* WelcomeScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
