@@ -57,15 +57,15 @@
     [self addChild:_ship];
     
     _invtieButton = [SKSpriteNode spriteNodeWithImageNamed:@"invite_40x40.png"];
-    _invtieButton.position = CGPointMake(self.frame.size.width-25, self.frame.size.height-25);
+    _invtieButton.position = CGPointMake(self.frame.size.width-65, self.frame.size.height-25);
     _invtieButton.name = @"inviteButton";
     [self addChild:_invtieButton];
     
-    /*
-     _settingButton = [SKSpriteNode spriteNodeWithImageNamed:@"setting_40x40.png"];
-     _settingButton.position = CGPointMake(self.frame.size.width-85, self.frame.size.height-40);
-     [self addChild:_settingButton];
-     */
+    
+    _settingButton = [SKSpriteNode spriteNodeWithImageNamed:@"setting_40x40.png"];
+    _settingButton.position = CGPointMake(self.frame.size.width-25, self.frame.size.height-25);
+    _settingButton.name = @"settingButton";
+    [self addChild:_settingButton];
     
     // Setup the asteroids
     _asteroids = [[NSMutableArray alloc] initWithCapacity:kNumAsteroids];
@@ -172,6 +172,10 @@
         }
         else if (n != self && [n.name isEqual: @"shareFacebook"]) {
             [self shareWithFacebookFriends:_score];
+        }
+        else if (n != self && [n.name isEqual: @"settingButton"]) {
+            // provide logout function only for setting button now
+            [self logoutFacebook];
         }
         else if (n != self && [n.name isEqual: @"inviteButton"]) {
             [self inviteFacebookFriends];
@@ -349,6 +353,11 @@
                                                       // TBD
                                                   }
      ];
+}
+
+- (void) logoutFacebook
+{
+    [FBSession.activeSession closeAndClearTokenInformation];
 }
 
 @end

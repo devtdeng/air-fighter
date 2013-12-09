@@ -56,7 +56,6 @@
     
     // FB session close.
     [self.session close];
-
 }
 
 @end
