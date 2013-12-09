@@ -357,6 +357,7 @@
 
 - (void) logoutFacebook
 {
+    // logout and back to welcome scene
     [FBSession.activeSession closeAndClearTokenInformation];
 }
 

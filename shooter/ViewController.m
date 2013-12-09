@@ -66,20 +66,32 @@
     
     // don't show FBLoginView if already login
     _loginview.hidden = YES;
+    
+    // clear current scene
+    SKView  *skview = (SKView*)self.view;
+    [skview.scene removeAllActions];
+    [skview.scene removeAllChildren];
+    
+    // move to next scene
     ShooterScene *shooterScene  = [[ShooterScene alloc] initWithSize:self.view.bounds.size];
     SKTransition *doors = [SKTransition doorsOpenVerticalWithDuration:2];
-    [(SKView*)self.view presentScene:shooterScene transition:doors];
+    [skview presentScene:shooterScene transition:doors];
 }
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user {
 }
 
 /* user logout */
-- (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
-    // show FBLoginView when logout
-    SKView *skView = (SKView *) self.view;
-    WelcomeScene* welcome = [WelcomeScene sceneWithSize:skView.bounds.size];
-    [skView presentScene: welcome];
+- (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView
+{
+    // clear current scene
+    SKView  *skview = (SKView*)self.view;
+    [skview.scene removeAllActions];
+    [skview.scene removeAllChildren];
+    
+    // back to welcome scene
+    WelcomeScene* welcome = [WelcomeScene sceneWithSize:skview.bounds.size];
+    [skview presentScene: welcome];
     
     _loginview.hidden = NO;
 }
