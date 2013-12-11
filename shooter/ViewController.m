@@ -66,13 +66,9 @@
     
     // don't show FBLoginView if already login
     _loginview.hidden = YES;
-    
-    // clear current scene
+
+    // move to game scene
     SKView  *skview = (SKView*)self.view;
-    [skview.scene removeAllActions];
-    [skview.scene removeAllChildren];
-    
-    // move to next scene
     ShooterScene *shooterScene  = [[ShooterScene alloc] initWithSize:self.view.bounds.size];
     SKTransition *doors = [SKTransition doorsOpenVerticalWithDuration:2];
     [skview presentScene:shooterScene transition:doors];
@@ -84,15 +80,12 @@
 /* user logout */
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView
 {
-    // clear current scene
-    SKView  *skview = (SKView*)self.view;
-    [skview.scene removeAllActions];
-    [skview.scene removeAllChildren];
-    
     // back to welcome scene
+    SKView  *skview = (SKView*)self.view;
     WelcomeScene* welcome = [WelcomeScene sceneWithSize:skview.bounds.size];
     [skview presentScene: welcome];
     
+    // hide Facebook loginview
     _loginview.hidden = NO;
 }
 

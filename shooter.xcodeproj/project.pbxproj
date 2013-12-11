@@ -23,7 +23,7 @@
 		855721EF184F8348000A33EE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8514E53E184F802800E18F67 /* CoreMotion.framework */; };
 		85A83321185335EE00C65EFC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A831EA185335DF00C65EFC /* FacebookSDK.framework */; };
 		85A8332C18543DAB00C65EFC /* invite_40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 85A8332B18543DAB00C65EFC /* invite_40x40.png */; };
-		85A8332E18543E1300C65EFC /* setting_40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 85A8332D18543E1300C65EFC /* setting_40x40.png */; };
+		85CA107C1858AE72004C9353 /* logoff_40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CA107B1858AE72004C9353 /* logoff_40x40.png */; };
 		85FF9703184F6DA2004E3FE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FF9702184F6DA2004E3FE3 /* Foundation.framework */; };
 		85FF9705184F6DA2004E3FE3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FF9704184F6DA2004E3FE3 /* CoreGraphics.framework */; };
 		85FF9707184F6DA2004E3FE3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FF9706184F6DA2004E3FE3 /* UIKit.framework */; };
@@ -70,7 +70,7 @@
 		853161CC18560E5400F554EF /* WelcomeScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeScene.m; sourceTree = "<group>"; };
 		85A831EA185335DF00C65EFC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		85A8332B18543DAB00C65EFC /* invite_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = invite_40x40.png; sourceTree = "<group>"; };
-		85A8332D18543E1300C65EFC /* setting_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_40x40.png; sourceTree = "<group>"; };
+		85CA107B1858AE72004C9353 /* logoff_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoff_40x40.png; sourceTree = "<group>"; };
 		85FF96FF184F6DA2004E3FE3 /* shooter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shooter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85FF9702184F6DA2004E3FE3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		85FF9704184F6DA2004E3FE3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -136,7 +136,7 @@
 		8514E50F184F6FD700E18F67 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				85A8332D18543E1300C65EFC /* setting_40x40.png */,
+				85CA107B1858AE72004C9353 /* logoff_40x40.png */,
 				85A8332B18543DAB00C65EFC /* invite_40x40.png */,
 				8514E510184F6FD700E18F67 /* icon-large@2x.png */,
 				8514E511184F6FD700E18F67 /* icon-medium.png */,
@@ -322,9 +322,9 @@
 				85FF970F184F6DA2004E3FE3 /* InfoPlist.strings in Resources */,
 				8514E52D184F6FD700E18F67 /* icon-medium@2x.png in Resources */,
 				8514E52E184F6FD700E18F67 /* icon-small.png in Resources */,
+				85CA107C1858AE72004C9353 /* logoff_40x40.png in Resources */,
 				85FF9722184F6DA2004E3FE3 /* Images.xcassets in Resources */,
 				8514E53D184F6FD700E18F67 /* SpaceShooter.atlas in Resources */,
-				85A8332E18543E1300C65EFC /* setting_40x40.png in Resources */,
 				85A8332C18543DAB00C65EFC /* invite_40x40.png in Resources */,
 				8514E531184F6FD700E18F67 /* star2.png in Resources */,
 				8514E535184F6FD700E18F67 /* stars3.sks in Resources */,
@@ -491,6 +491,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "shooter/shooter-Prefix.pch";
 				INFOPLIST_FILE = "shooter/shooter-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -510,6 +511,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "shooter/shooter-Prefix.pch";
 				INFOPLIST_FILE = "shooter/shooter-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				TARGETED_DEVICE_FAMILY = 1;

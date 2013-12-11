@@ -19,7 +19,7 @@
 {
     SKSpriteNode    *_ship;
     SKSpriteNode    *_invtieButton;
-    SKSpriteNode    *_settingButton;
+    SKSpriteNode    *_logoffButton;
     
     NSMutableArray *_shipBullets;
     int _nextShipBullet;
@@ -56,16 +56,16 @@
     _ship.position = CGPointMake(self.frame.size.width * 0.1, CGRectGetMidY(self.frame));
     [self addChild:_ship];
     
+    // Setup button
     _invtieButton = [SKSpriteNode spriteNodeWithImageNamed:@"invite_40x40.png"];
     _invtieButton.position = CGPointMake(self.frame.size.width-65, self.frame.size.height-25);
     _invtieButton.name = @"inviteButton";
     [self addChild:_invtieButton];
     
-    
-    _settingButton = [SKSpriteNode spriteNodeWithImageNamed:@"setting_40x40.png"];
-    _settingButton.position = CGPointMake(self.frame.size.width-25, self.frame.size.height-25);
-    _settingButton.name = @"settingButton";
-    [self addChild:_settingButton];
+    _logoffButton = [SKSpriteNode spriteNodeWithImageNamed:@"logoff_40x40.png"];
+    _logoffButton.position = CGPointMake(self.frame.size.width-20, self.frame.size.height-25);
+    _logoffButton.name = @"logoffButton";
+    [self addChild:_logoffButton];
     
     // Setup the asteroids
     _asteroids = [[NSMutableArray alloc] initWithCapacity:kNumAsteroids];
@@ -173,8 +173,7 @@
         else if (n != self && [n.name isEqual: @"shareFacebook"]) {
             [self shareWithFacebookFriends:_score];
         }
-        else if (n != self && [n.name isEqual: @"settingButton"]) {
-            // provide logout function only for setting button now
+        else if (n != self && [n.name isEqual: @"logoffButton"]) {
             [self logoutFacebook];
         }
         else if (n != self && [n.name isEqual: @"inviteButton"]) {
