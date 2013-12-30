@@ -32,7 +32,7 @@
 - (SKLabelNode *)newHelloNode
 {
     SKLabelNode *welcomeNode = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    welcomeNode.text = @"Space Shooter!";
+    welcomeNode.text = @"aerial combat!";
     welcomeNode.fontSize = 42;
     welcomeNode.position = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame)*1.2);
     return welcomeNode;
