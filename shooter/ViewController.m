@@ -9,8 +9,9 @@
 #import "ViewController.h"
 #import "ShooterScene.h"
 #import "WelcomeScene.h"
+#import <iAd/ADBannerView.h>
 
-@interface ViewController () <FBLoginViewDelegate>
+@interface ViewController () <FBLoginViewDelegate, ADBannerViewDelegate>
 @end
 
 @implementation ViewController
@@ -39,6 +40,8 @@
     [self.view addSubview:_loginview];
     [_loginview sizeToFit];
     
+    ADBannerView *adView = [[ADBannerView alloc] initWithFrame:CGRectMake(0, 0,320,50)];
+    [self.view addSubview:adView];
 }
 
 - (BOOL)shouldAutorotate
@@ -91,5 +94,15 @@
 
 - (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
     // Handle Facebook login error here
+}
+
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
+{
+    return YES;
+}
+
+- (void)bannerViewActionDidFinish:(ADBannerView *)banner
+{
+    
 }
 @end

@@ -9,10 +9,11 @@
 #import "ShooterScene.h"
 
 #define kScale 0.2
-#define kPropeller  17
+#define kPropeller  22
 #define kShadowX    15
 #define kShadowY    0
-#define kSpeed      200
+#define kPlaneSpeed 300
+#define kBulletDur  1
 
 @implementation ShooterScene
 {
@@ -30,12 +31,14 @@
     NSMutableArray *_cloudsTextures;
     
     double  _nextEnemy;
+    double  _nextBullet;
     double  _nextCloud;
 
     // score
     int _score;
     SKLabelNode *_scoreLabel;
     BOOL    _gameOver;
+    
 }
 
 -(id)initWithSize:(CGSize)size {
@@ -50,18 +53,12 @@
         screenWidth = screenRect.size.width;
         
         //adding background
-        SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"Background"];
+        SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"Background02"];
         background.position = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame));
         [self addChild:background];
         
         //adding the smokeTrail
         /* TBD */
-        /*
-         NSString *smokePath = [[NSBundle mainBundle] pathForResource:@"Smoke" ofType:@"sks"];
-         _smokeTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:smokePath];
-         _smokeTrail.position = CGPointMake(screenWidth/2, 15);
-         [self addChild:_smokeTrail];
-         */
         
         //load explosions
         SKTextureAtlas *explosionAtlas = [SKTextureAtlas atlasNamed:@"EXPLOSION"];
@@ -80,6 +77,16 @@
             SKTexture *texture = [cloudsAtlas textureNamed:name];
             [_cloudsTextures addObject:texture];
         }
+        
+        _scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+        _scoreLabel.name = @"score";
+        _scoreLabel.scale = 0.1;
+        _scoreLabel.fontSize = 20;
+        _scoreLabel.position = CGPointMake(40, self.frame.size.height*0.92);
+        _scoreLabel.fontColor = [SKColor yellowColor];
+        [self addChild:_scoreLabel];
+        SKAction *labelScaleAction = [SKAction scaleTo:1.0 duration:1];
+        [_scoreLabel runAction:labelScaleAction];
         
         [self startGame];
     }
@@ -120,33 +127,48 @@
     _planeShadow.position = CGPointMake(_plane.position.x+kShadowX, _plane.position.y+kShadowY);
     [self addChild:_planeShadow];
     
-    _score = 0;
-    _scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
-    _scoreLabel.name = @"score";
-    _scoreLabel.text = [NSString stringWithFormat:@"Score : %d", _score];
-    _scoreLabel.scale = 0.1;
-    _scoreLabel.fontSize = 20;
-    _scoreLabel.position = CGPointMake(40, self.frame.size.height*0.92);
-    _scoreLabel.fontColor = [SKColor yellowColor];
-    [self addChild:_scoreLabel];
-    SKAction *labelScaleAction = [SKAction scaleTo:1.0 duration:1];
-    [_scoreLabel runAction:labelScaleAction];
     
+    _score = 0;
+    _scoreLabel.text = [NSString stringWithFormat:@"Score : %d", _score];
+
     _nextEnemy = 0;
+    _nextBullet = 0;
     _gameOver = NO;
 }
 
 -(void)update:(NSTimeInterval)currentTime{
     double curTime = CACurrentMediaTime();
-    
     // plane texture
     if(_plane.position.x == destPoint.x){
         _plane.texture = [SKTexture textureWithImageNamed:@"PLANE.png"];
     }
     
+    // fire bullets as well
+    if(_gameOver==NO && curTime > _nextBullet){
+        _nextBullet = 0.2 + curTime;
+        
+        CGPoint location = [_plane position];
+        SKSpriteNode *bullet = [SKSpriteNode spriteNodeWithImageNamed:@"BULLET.png"];
+        
+        bullet.position = CGPointMake(location.x,location.y+_plane.size.height/2);
+        bullet.zPosition = 1;
+        bullet.scale = kScale*2;
+        
+        bullet.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:bullet.size];
+        bullet.physicsBody.dynamic = NO;
+        bullet.physicsBody.categoryBitMask = bulletCategory;
+        bullet.physicsBody.contactTestBitMask = enemyCategory;
+        bullet.physicsBody.collisionBitMask = 0;
+        
+        SKAction *action = [SKAction moveToY:self.frame.size.height+bullet.size.height duration:kBulletDur];
+        SKAction *remove = [SKAction removeFromParent];
+        [bullet runAction:[SKAction sequence:@[action,remove]]];
+        [self addChild:bullet];
+    }
+
     // enemy
     if (curTime > _nextEnemy) {
-        float randSecs = [self randomValueBetween:1.0 andValue:4.0];
+        float randSecs = [self randomValueBetween:0.5 andValue:2.0];
         _nextEnemy = randSecs + curTime;
         
         SKSpriteNode *enemy = [SKSpriteNode spriteNodeWithImageNamed:@"ENEMY.png"];
@@ -217,11 +239,31 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self MoveAndFire:touches];
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self MoveAndFire:touches];
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+
+}
+
+- (void)MoveAndFire:(NSSet* )touches
+{
     // move plane to destination
     for (UITouch *touch in touches) {
         SKNode *n = [self nodeAtPoint:[touch locationInNode:self]];
-        if (n != self && [n.name isEqual: @"restartLabel"]) {
-            [[self childNodeWithName:@"restartLabel"] removeFromParent];
+        if (n != self && [n.name isEqual: @"finalLabel"]) {
+            [[self childNodeWithName:@"finalLabel"] removeFromParent];
             [self startGame];
             return;
         }
@@ -230,7 +272,7 @@
             
             destPoint = [touch locationInNode:self];
             float distance=sqrtf(pow(destPoint.x-_plane.position.x, 2)+pow(destPoint.y-_plane.position.y, 2));
-            float duration = distance/kSpeed;
+            float duration = distance/kPlaneSpeed;
             
             SKAction *moveTo = [SKAction moveTo:destPoint duration:duration];
             [_plane runAction:moveTo];
@@ -245,25 +287,6 @@
             break;
         }
     }
-    
-    // fire bullets as well
-    CGPoint location = [_plane position];
-    SKSpriteNode *bullet = [SKSpriteNode spriteNodeWithImageNamed:@"Bullet.png"];
-    
-    bullet.position = CGPointMake(location.x,location.y+_plane.size.height/2);
-    bullet.zPosition = 1;
-    bullet.scale = kScale*2;
-    
-    bullet.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:bullet.size];
-    bullet.physicsBody.dynamic = NO;
-    bullet.physicsBody.categoryBitMask = bulletCategory;
-    bullet.physicsBody.contactTestBitMask = enemyCategory;
-    bullet.physicsBody.collisionBitMask = 0;
-    
-    SKAction *action = [SKAction moveToY:self.frame.size.height+bullet.size.height duration:2];
-    SKAction *remove = [SKAction removeFromParent];
-    [bullet runAction:[SKAction sequence:@[action,remove]]];
-    [self addChild:bullet];
 }
 
 - (float)randomValueBetween:(float)low andValue:(float)high {
@@ -276,8 +299,8 @@
 
 -(void)didBeginContact:(SKPhysicsContact *)contact{
     SKPhysicsBody *firstBody;
-    
     firstBody = contact.bodyA.categoryBitMask<contact.bodyB.categoryBitMask?contact.bodyA:contact.bodyB;
+
     if ((firstBody.categoryBitMask & bulletCategory) != 0) // bullet hits enemy
     {
         SKNode *projectile = (contact.bodyA.categoryBitMask & bulletCategory) ? contact.bodyA.node : contact.bodyB.node;
@@ -319,21 +342,25 @@
         SKAction *explosionAction = [SKAction animateWithTextures:_explosionTextures timePerFrame:0.07];
         SKAction *remove = [SKAction removeFromParent];
         [explosion runAction:[SKAction sequence:@[explosionAction,remove]]];
-        _gameOver = YES;
+        
+        [self gameOver];
     }
+}
+
+- (void)gameOver
+{
+    if(_gameOver) return;
     
-    if(_gameOver)
-    {
-        SKLabelNode *restartLabel;
-        restartLabel = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
-        restartLabel.name = @"restartLabel";
-        restartLabel.text = @"Play Again?";
-        restartLabel.scale = 0.5;
-        restartLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height * 0.4);
-        restartLabel.fontColor = [SKColor yellowColor];
-        [self addChild:restartLabel];
-        SKAction *labelScaleAction = [SKAction scaleTo:1.0 duration:0.5];
-        [restartLabel runAction:labelScaleAction];
-    }
+    SKLabelNode *finalLabel = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+    finalLabel.name = @"finalLabel";
+    finalLabel.text = @"Play Again?";
+    finalLabel.scale = 0.5;
+    finalLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height * 0.4);
+    finalLabel.fontColor = [SKColor yellowColor];
+    [self addChild:finalLabel];
+    SKAction *labelScaleAction = [SKAction scaleTo:1.0 duration:0.5];
+    [finalLabel runAction:labelScaleAction];
+
+    _gameOver = YES;
 }
 @end
