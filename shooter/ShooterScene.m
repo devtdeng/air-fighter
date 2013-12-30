@@ -53,7 +53,7 @@
         screenWidth = screenRect.size.width;
         
         //adding background
-        SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"Background02"];
+        SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"Background"];
         background.position = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame));
         [self addChild:background];
         
